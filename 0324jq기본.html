@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 자바스크립트를 작성하면서 제이쿼리를 쓰기위해 먼저 불러옴 -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" 
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" 
+    crossorigin="anonymous"></script>
+    <script>
+        // 문서의 태그가 출력되기 전에 호출하면 값을 가져올 수 없다.
+        console.log($("#header"));
+        // 문서준비 메소드 확인
+        // 문서가 다 준비된 이후에 코드실행. 오류를 줄일 수 있다.
+        $(function(){
+            console.log($("#header"));
+        });
+    </script>
+</head>
+<body>
+    <h1 id="header">JQuery</h1>
+    <button id="button">제이쿼리로 접근하여 이벤트</button>
+    <button id="button2">
+        클릭했을 때 안의 값을 안녕으로 바꾸세요
+    </button>
+    <ul id="list">
+        <li>첫번째</li>
+        <li>두번째</li>
+        <li>세번째</li>
+        <li>네번째</li>
+    </ul>
+    <form id="form">
+        <label for="">이름</label>
+        <input type="text" id="name">
+        <input type="submit" value="제출">
+    </form>
+    <script>
+        // 바닐라 자바스크립트
+        // DOM에 접근하기 위해선 자바스크립트 밖에 없었기 때문에
+        // JQ를 이용해 간소화해서 접근했었다.
+        // 요즘은 가상 DOM이 생겨나 리액트를 쓰므로 제이쿼리 수요가 줄고있다.
+        const header = document.querySelector("#header");
+        // 제이쿼리
+        const headerJq = $("#header");
+
+        // DOM으로 들고온다.
+        console.log(header);
+        // 좀 다른 형태로 들고와 출력한다.
+        console.log(headerJq);
+
+        // 제이쿼리로 접근하여 버튼에 이벤트
+        $("#button").on("click", function(){
+
+            // 모든 속성에 메소드로 접근해서 값을 할당
+            headerJq.text("버튼을 눌렀습니다.");
+            // 메소드로 클래스 바로 접근 
+            // 원래는 classList속성에 들어가 메소드를 붙여줘야했음
+            // headerJq.classList.add("className");
+            headerJq.addClass();
+            headerJq.removeClass();
+        });
+
+        // id=button2에 접근해서 그 값 바꾸기
+
+        $("#button2").on("click", function(e){
+            $("#button2").text("안녕"); // setter메소드
+            // 이벤트객체는 자바스크립트로 접근
+            // e.target.innerHTML = "안녕";
+        });
+
+        /* 제이쿼리 CSS선택자(QuerySelector에서도 사용가능) */
+        const ul = $("#list");
+        // id=list인 ul의 li중 인덱스 0번째 li에 접근
+        console.log($("#list li:eq(0)"));
+        // 부모의 자식들 중에서 그 위치보다 큰 위치에 있는 값
+        // <li>두번쩨<li>보다 큰 위치에 있는 값 : 세번쨰, 네번쨰
+        console.log($("#list li:gt(1)"));
+
+        /* 제이쿼리 메소드의 특징 */
+        // 제이쿼리는 속성에 직접 접근하지 않고 메소드로 값을
+        // 가져오거나 값을 수정
+        // 값 수정(setter)
+        $("#header").text("글자를 수정합니다.");
+        // 값을 가져온다.(getter)
+        console.log($("#header").text());
+
+        // form, input의 값을 가져오기 위한 메소드 val()
+        $("#name").val("값을 입력하였습니다.");
+        console.log($("#name").val());
+
+        /* 제이쿼리 메소드 체이닝 */
+        // 제이쿼리를 이용하여 객체의 값을 변경한 후
+        // 다른 메소드를 이용해서 계속 변경이 가능하다.
+        $("#name").height(60).width(60);
+
+        /* 제이쿼리르르 이용한 생성, 추가 */
+        const p = $("<p>");
+        p.text("값을 입력하였습니다.-생성된 태그");
+        $("body").append(p);
+        // 삭제
+        // p.remove();
+
+        /* 제이쿼리를 이용한 노드 탐색 */
+        // 부모, 형제, 자식 태그를 메소드로 찾을 수 있다.
+        // 메소드 체이닝이 적용이 되어서 메소드 뒤에
+        // 연결하는 방식으로 계속 찾을 수 있다.
+        // 부모 : parent()
+        // 형제 : next(), prev()
+        // 자식 : children(), find() - 선택자를 이용해서 찾음.
+        
+        // 제이쿼리에서 추가된 필터링 메소드
+        // .first(), .last(), .eq(), .filter()를 통해서
+        // children()을 통해 자식들 중에서 원하는 값을 찾을 수 있다.
+    </script>
+</body>
+</html>
