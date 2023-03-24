@@ -36,6 +36,16 @@
         <input type="text" id="name">
         <input type="submit" value="제출">
     </form>
+    <ul id="list2">
+        <!-- 아래값을 list시작 으로 바꾸세요 -->
+        <li>1</li>
+        <!-- 아래값을 제이쿼리를 통해 작성중입니다. 으로 바꾸세요 -->
+        <li>2</li>
+        <!-- 세번째 li 태그입니다. -->
+        <li>3</li>
+        <!--  -->
+        <li>4</li>
+    </ul>
     <script>
         // 바닐라 자바스크립트
         // DOM에 접근하기 위해선 자바스크립트 밖에 없었기 때문에
@@ -113,6 +123,23 @@
         // 제이쿼리에서 추가된 필터링 메소드
         // .first(), .last(), .eq(), .filter()를 통해서
         // children()을 통해 자식들 중에서 원하는 값을 찾을 수 있다.
+
+        console.log($("#list").children().first());
+        console.log($("#list").children().first().next());
+        console.log($("#list").children().eq(2));
+        console.log($("#list").children().last());
+        // 인덱스2, 세번째
+        console.log($("#list").children().filter(":eq(2)"));
+        
+        // 제이쿼리를 이용한 요소 접근 실습
+        $("#list2").children().first().text("list시작");
+        $("#list2").children().eq(1).text("제이쿼리로 값을 수정중입니다.");
+        $("#list2").children().last().prev().text("세번째 li 태그입니다.");
+        // filter에 작성된 css선택자는 현재 children 중에서 찾는다.
+        $("#list2").children().filter("li:nth-child(4)").text("네번째 태그입니다.");
+
+        
+
     </script>
 </body>
 </html>
